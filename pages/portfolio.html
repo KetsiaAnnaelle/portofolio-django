@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Portfolio | Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../assets/css/dashboard-theme.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <aside class="dashboard-sidebar">
+    <div class="profile">
+      <img src="https://via.placeholder.com/80" alt="Profile">
+      <h3>Ketsia</h3>
+      <p>User</p>
+    </div>
+    <nav>
+      <a href="dashboard.html"><i class="fas fa-th-large"></i>Dashboard</a>
+      <a href="about.html"><i class="fas fa-user"></i>About</a>
+      <a href="skills.html"><i class="fas fa-code"></i>Skills</a>
+      <a href="qualifications.html"><i class="fas fa-graduation-cap"></i>Qualifications</a>
+      <a href="services.html"><i class="fas fa-briefcase"></i>Services</a>
+      <a href="portfolio.html" class="active"><i class="fas fa-folder-open"></i>Portfolio</a>
+      <a href="testimonials.html"><i class="fas fa-comments"></i>Testimonial</a>
+      <a href="contact.html"><i class="fas fa-envelope"></i>Contact</a>
+    </nav>
+  </aside>
+  <main class="dashboard-main">
+    <div class="dashboard-card">
+      <div class="dashboard-title">Ajouter un projet</div>
+      <div class="dashboard-desc">Remplissez les informations de votre projet pour l'ajouter à votre portfolio.</div>
+      <form id="portfolioForm" enctype="multipart/form-data">
+        <input type="text" name="title" placeholder="Titre du projet" required>
+        <input type="url" name="url" placeholder="Lien du projet (optionnel)">
+        <textarea name="description" placeholder="Décrivez votre projet" required></textarea>
+        <input type="file" name="image" accept="image/*" required>
+        <button type="submit">Ajouter</button>
+        <div id="form-status"></div>
+      </form>
+    </div>
+  </main>
+  <script>
+document.getElementById('portfolioForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const form = e.target;
+  const formData = new FormData(form);
+  const statusDiv = document.getElementById('form-status');
+  statusDiv.innerHTML = '';
+  try {
+    const response = await fetch('http://127.0.0.1:8000/api/portfolio/', {
+      method: 'POST',
+      body: formData,
+    });
+    const data = await response.json();
+    if (data.success) {
+      statusDiv.innerHTML = '<span style="color:green;">Projet ajouté avec succès !</span>';
+      form.reset();
+    } else if (data.errors) {
+      for (const [field, errors] of Object.entries(data.errors)) {
+        statusDiv.innerHTML += `<p style="color:red;">${errors.join('<br>')}</p>`;
+      }
+    }
+  } catch (err) {
+    statusDiv.innerHTML = '<p style="color:red;">Erreur lors de la soumission du formulaire.</p>';
+  }
+});
+</script>
+</body>
+</html>

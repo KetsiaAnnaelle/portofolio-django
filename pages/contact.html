@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../assets/css/ongletDash.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      background: #f7f8fa;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    .container {
+      max-width: 500px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      padding: 2rem 2.5rem 2.5rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      color: #2d3a4b;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    label {
+      font-weight: 600;
+      color: #3a3a3a;
+      margin-bottom: 0.3rem;
+    }
+    input[type="email"], input[type="text"], input[type="url"] {
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 0.8rem;
+      font-size: 1rem;
+      background: #fafbfc;
+      transition: border 0.2s;
+    }
+    input[type="email"]:focus, input[type="text"]:focus, input[type="url"]:focus {
+      border: 1.5px solid #6c63ff;
+      outline: none;
+    }
+    button[type="submit"] {
+      background: #6c63ff;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.9rem 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 0.5rem;
+    }
+    button[type="submit"]:hover {
+      background: #554ee2;
+    }
+    @media (max-width: 600px) {
+      .container {
+        max-width: 98vw;
+        padding: 1.2rem 0.7rem 1.7rem 0.7rem;
+      }
+      h1 {
+        font-size: 1.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="profile">
+      <img src="https://via.placeholder.com/80" alt="Profile">
+      <h3>Ketsia</h3>
+      <p>User</p>
+    </div>
+    <nav>
+      <a href="dashboard.html"><i class="fas fa-th-large"></i>Dashboard</a>
+      <a href="about.html"><i class="fas fa-user"></i>About</a>
+      <a href="skills.html"><i class="fas fa-code"></i>Skills</a>
+      <a href="qualifications.html"><i class="fas fa-graduation-cap"></i>Qualifications</a>
+      <a href="services.html"><i class="fas fa-briefcase"></i>Services</a>
+      <a href="portfolio.html"><i class="fas fa-folder-open"></i>Portfolio</a>
+      <a href="testimonials.html"><i class="fas fa-comments"></i>Testimonial</a>
+      <a href="contact.html" class="active"><i class="fas fa-envelope"></i>Contact</a>
+    </nav>
+  </aside>
+  <main class="container">
+    <h1>Informations de contact</h1>
+    <form id="contactForm">
+      <label for="email">Adresse email</label>
+      <input type="email" id="email" required>
+      <label for="phone">Téléphone</label>
+      <input type="text" id="phone">
+      <label for="linkedin">Lien LinkedIn</label>
+      <input type="url" id="linkedin">
+      <button type="submit">Enregistrer</button>
+    </form>
+  </main>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyDfFIuWqz_-8AeNnoGAR2jSGMd7z2K22t0",
+      authDomain: "portfolio-aquand.firebaseapp.com",
+      projectId: "portfolio-aquand",
+      storageBucket: "portfolio-aquand.appspot.com",
+      messagingSenderId: "332649727227",
+      appId: "1:332649727227:web:30f35b4049081816bf9c5e",
+      measurementId: "G-QZ8EEY0TZC"
+    };
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    document.getElementById("contactForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const phone = document.getElementById("phone").value;
+      const linkedin = document.getElementById("linkedin").value;
+      await addDoc(collection(db, "contacts"), { email, phone, linkedin });
+      alert("Contact enregistré !");
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>

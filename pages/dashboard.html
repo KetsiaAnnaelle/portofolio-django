@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap">
+  <link rel="stylesheet" href="../assets/css/dashboard.css">
+  <style>
+    .main {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      padding: 2rem;
+    }
+    .dashboard-sections {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: flex-start;
+    }
+    .section-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      padding: 2rem 2rem 1.5rem 2rem;
+      flex: 1 1 45%;
+      min-width: 320px;
+      max-width: 48%;
+      margin-bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    @media (max-width: 900px) {
+      .section-card { max-width: 100%; min-width: 100%; }
+      .dashboard-sections { flex-direction: column; gap: 1.5rem; }
+    }
+    .edit-btn {
+      background: #6c63ff;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.7rem 1.2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: background 0.2s;
+    }
+    .edit-btn:hover { background: #554ee2; }
+    .delete-btn { background: #d32f2f !important; color: #fff !important; margin-left: 8px; }
+    .card-list { display: flex; flex-wrap: wrap; gap: 1.2rem; }
+    .item-card {
+      background: #f7f8fa;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 0.5rem;
+      flex: 1 1 45%;
+      min-width: 220px;
+      max-width: 48%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      position: relative;
+    }
+    .item-card .edit-btn { margin-top: 0.5rem; }
+    .item-card .delete-btn { margin-left: 0.5rem; }
+    @media (max-width: 900px) {
+      .item-card { max-width: 100%; min-width: 100%; }
+      .card-list { flex-direction: column; gap: 1rem; }
+    }
+    .item-list { list-style: none; padding: 0; margin: 0; }
+    .item-list li {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 1.08rem;
+    }
+    .item-list li:last-child { border-bottom: none; }
+    .item-icon { color: #6c63ff; font-size: 1.2em; min-width: 1.5em; text-align: center; }
+    .item-title { font-weight: 600; }
+    .item-meta { color: #888; font-size: 0.98em; margin-left: 0.5em; }
+    .item-edit-btn {
+      margin-left: auto;
+      background: #6c63ff;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 0.4em 1em;
+      font-size: 0.98em;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .item-edit-btn:hover { background: #554ee2; }
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="profile">
+      <img src="https://via.placeholder.com/80" alt="Profile">
+      <h3>Ketsia</h3>
+      <p>User</p>
+    </div>
+    <nav>
+      <a href="#" class="active"><i class="fas fa-th-large"></i>Dashboard</a>
+      <a href="about.html"><i class="fas fa-user"></i>About</a>
+      <a href="skills.html"><i class="fas fa-code"></i>Skills</a>
+      <a href="qualifications.html"><i class="fas fa-graduation-cap"></i>Qualifications</a>
+      <a href="services.html"><i class="fas fa-briefcase"></i>Services</a>
+      <a href="portfolio.html"><i class="fas fa-folder-open"></i>Portfolio</a>
+      <a href="testimonials.html"><i class="fas fa-comments"></i>Testimonial</a>
+      <a href="contact.html"><i class="fas fa-envelope"></i>Contact</a>
+    </nav>
+  </aside>
+  <main class="main">
+    <h1>Dashboard</h1>
+    <div class="dashboard-sections">
+      <div class="section-card" id="aboutSection">
+        <h2><i class="fas fa-user"></i>About Me</h2>
+        <div id="aboutContent">
+          <p>Aucune information enregistrée. Veuillez ajouter une description personnelle pour enrichir votre profil.</p>
+        </div>
+        <button class="edit-btn" onclick="location.href='about.html'">Edit</button>
+      </div>
+      <div class="section-card" id="skillsSection">
+        <h2><i class="fas fa-code"></i>Skills</h2>
+        <ul id="skillsList" class="item-list">
+          <li>Aucune compétence ajoutée pour le moment.</li>
+        </ul>
+        <button class="edit-btn" onclick="location.href='skills.html'">Edit</button>
+      </div>
+      <div class="section-card" id="qualificationsSection">
+        <h2><i class="fas fa-graduation-cap"></i>Qualifications</h2>
+        <ul id="qualificationsList" class="item-list">
+          <li>Vous n'avez pas encore renseigné vos diplômes ou certificats.</li>
+        </ul>
+        <button class="edit-btn" onclick="location.href='qualifications.html'">Edit</button>
+      </div>
+      <div class="section-card" id="servicesSection">
+        <h2><i class="fas fa-briefcase"></i>Services</h2>
+        <ul id="servicesList" class="item-list">
+          <li>Vos services proposés n'apparaissent pas encore.</li>
+        </ul>
+        <button class="edit-btn" onclick="location.href='services.html'">Edit</button>
+      </div>
+      <div class="section-card" id="portfolioSection">
+        <h2><i class="fas fa-folder-open"></i>Portfolio</h2>
+        <ul id="portfolioList" class="item-list">
+          <li>Vous n'avez pas encore ajouté de projets.</li>
+        </ul>
+        <button class="edit-btn" onclick="location.href='portfolio.html'">Edit</button>
+      </div>
+      <div class="section-card" id="testimonialSection">
+        <h2><i class="fas fa-comments"></i>Testimonial</h2>
+        <ul id="testimonialsList" class="item-list">
+          <li>Aucun témoignage pour l'instant.</li>
+        </ul>
+        <button class="edit-btn" onclick="location.href='testimonials.html'">Edit</button>
+      </div>
+    </div>
+  </main>
+  <script>
+    // ABOUT
+    async function loadAboutCard() {
+      const aboutContent = document.getElementById('aboutContent');
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/about/');
+        const result = await response.json();
+        if (result.success && result.data && result.data.length > 0) {
+          const about = result.data[0];
+          let photoHtml = about.photo ? `<img src="${about.photo}" alt="Photo" style="max-width:60px; border-radius:50%; margin-bottom:10px;">` : '';
+          let cvHtml = about.cv ? `<a href="${about.cv}" target="_blank" style="display:inline-block;margin-top:8px;">Télécharger le CV</a>` : '';
+          aboutContent.innerHTML = `
+            <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+              ${photoHtml}
+              <div style="flex:1;">
+                <p style="margin-bottom:8px;">${about.bio}</p>
+                ${cvHtml}
+              </div>
+            </div>
+          `;
+        }
+      } catch (err) {}
+    }
+    // SKILLS
+    async function loadSkills() {
+      const skillsList = document.getElementById('skillsList');
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/skills/');
+        const result = await response.json();
+        if (result.success && result.data && result.data.length > 0) {
+          let html = '';
+          for (const skill of result.data) {
+            html += `<li><span class="item-icon"><i class="fas fa-layer-group"></i></span><span class="item-title">${skill.skill}</span><span class="item-meta">${skill.level}</span><button class="item-edit-btn" onclick="location.href='skills.html'">Edit</button></li>`;
+          }
+          skillsList.innerHTML = html;
+        }
+      } catch (err) {}
+    }
+    // QUALIFICATIONS
+    async function loadQualifications() {
+      const qualificationsList = document.getElementById('qualificationsList');
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/qualifications/');
+        const result = await response.json();
+        if (result.success && result.data && result.data.length > 0) {
+          let html = '';
+          for (const q of result.data) {
+            html += `<li><span class="item-icon"><i class="fas fa-user-graduate"></i></span><span class="item-title">${q.diploma}</span><span class="item-meta">${q.institution} - ${q.year}</span><button class="item-edit-btn" onclick="location.href='qualifications.html'">Edit</button></li>`;
+          }
+          qualificationsList.innerHTML = html;
+        }
+      } catch (err) {}
+    }
+    // SERVICES
+    async function loadServices() {
+      const servicesList = document.getElementById('servicesList');
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/services/');
+        const result = await response.json();
+        if (result.success && result.data && result.data.length > 0) {
+          let html = '';
+          for (const s of result.data) {
+            html += `<li><span class="item-icon"><i class="fas fa-pen-nib"></i></span><span class="item-title">${s.service}</span><span class="item-meta">${s.description}</span><button class="item-edit-btn" onclick="location.href='services.html'">Edit</button></li>`;
+          }
+          servicesList.innerHTML = html;
+        }
+      } catch (err) {}
+    }
+    // PORTFOLIO
+    async function loadPortfolio() {
+      const portfolioList = document.getElementById('portfolioList');
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/portfolio/');
+        const result = await response.json();
+        if (result.success && result.data && result.data.length > 0) {
+          let html = '';
+          for (const p of result.data) {
+            let imgHtml = p.image ? `<img src="${p.image}" alt="Projet" style="max-width:60px;max-height:40px;border-radius:8px;">` : '';
+            html += `<li><span class="item-icon"><i class="fas fa-folder"></i></span><span class="item-title">${p.title}</span><span class="item-meta">${p.description}</span>${imgHtml}<button class="item-edit-btn" onclick="location.href='portfolio.html'">Edit</button></li>`;
+          }
+          portfolioList.innerHTML = html;
+        }
+      } catch (err) {}
+    }
+    // TESTIMONIALS
+    async function loadTestimonials() {
+      const testimonialsList = document.getElementById('testimonialsList');
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/testimonials/');
+        const result = await response.json();
+        if (result.success && result.data && result.data.length > 0) {
+          let html = '';
+          for (const t of result.data) {
+            html += `<li><span class="item-icon"><i class="fas fa-comment-dots"></i></span><span class="item-title">${t.author}</span><span class="item-meta">${t.testimonial}</span><button class="item-edit-btn" onclick="location.href='testimonials.html'">Edit</button></li>`;
+          }
+          testimonialsList.innerHTML = html;
+        }
+      } catch (err) {}
+    }
+    window.addEventListener('DOMContentLoaded', () => {
+      loadAboutCard();
+      loadSkills();
+      loadQualifications();
+      loadServices();
+      loadPortfolio();
+      loadTestimonials();
+    });
+  </script>
+</body>
+</html>

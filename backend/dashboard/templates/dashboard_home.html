@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+</head>
+<body>
+  <h2>Ajouter un projet</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {% if form.errors %}
+      <div class="form-errors">
+        {% for field in form %}
+          {% for error in field.errors %}
+            <p>{{ error }}</p>
+          {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+          <p>{{ error }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+    <button type="submit">Ajouter</button>
+  </form>
+  <h3>Mes Projets</h3>
+  {% for project in portfolios %}
+    <div>
+      <img src="{{ project.image.url }}" width="100">
+      <h4>{{ project.title }}</h4>
+      <p>{{ project.description }}</p>
+      <a href="{{ project.url }}" target="_blank">Voir la démo</a>
+    </div>
+  {% endfor %}
+  <a href="{% url 'logout' %}">Logout</a>
+</body>
+</html> 

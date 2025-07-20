@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Portfolio Public</title>
+</head>
+<body>
+  <h2>Portfolio</h2>
+  {% for project in portfolios %}
+    <div>
+      <img src="{{ project.image.url }}" width="100">
+      <h4>{{ project.title }}</h4>
+      <p>{{ project.description }}</p>
+      <a href="{{ project.url }}" target="_blank">Voir la démo</a>
+    </div>
+  {% endfor %}
+  <a href="{% url 'login' %}">Admin Login</a>
+</body>
+</html> 

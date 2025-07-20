@@ -1,0 +1,112 @@
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.auth-container {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+}
+.auth-card {
+  background: #fff;
+  border-radius: 28px;
+  box-shadow: 0 8px 32px rgba(44, 62, 80, 0.18);
+  max-width: 350px;
+  width: 100%;
+  padding: 2.5rem 2rem 2.2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  margin: 1rem;
+}
+.auth-card h2 {
+  color: #7c3aed;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+  letter-spacing: 1px;
+}
+.subtitle {
+  color: #a18cd1;
+  font-size: 1.05rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  letter-spacing: 1px;
+}
+.input-group {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background: #f3eaff;
+  border-radius: 12px;
+  margin-bottom: 1.2rem;
+  padding: 0.2rem 1rem;
+  border: 1.5px solid #e0e0e0;
+}
+.input-icon {
+  color: #7c3aed;
+  font-size: 1.1rem;
+  margin-right: 0.7rem;
+}
+.auth-card input[type="text"],
+.auth-card input[type="email"],
+.auth-card input[type="password"] {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 1.08rem;
+  padding: 0.9rem 0;
+  width: 100%;
+  color: #2d3a4b;
+}
+.auth-card input::placeholder {
+  color: #b8a9d1;
+  opacity: 1;
+}
+.auth-btn {
+  width: 100%;
+  background: #7c3aed;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 1rem 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  margin-bottom: 1.2rem;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(124,58,237,0.10);
+}
+.auth-btn:hover {
+  background: #5f2eea;
+  box-shadow: 0 4px 16px rgba(124,58,237,0.18);
+}
+.switch-link {
+  color: #7c3aed;
+  font-size: 1rem;
+  text-align: center;
+}
+.switch-link a {
+  color: #5f2eea;
+  text-decoration: underline;
+  font-weight: 600;
+}
+@media (max-width: 600px) {
+  .auth-card {
+    max-width: 98vw;
+    padding: 1.2rem 0.7rem 1.7rem 0.7rem;
+  }
+  .auth-card h2 {
+    font-size: 1.3rem;
+  }
+} 

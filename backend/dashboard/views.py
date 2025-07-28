@@ -103,7 +103,8 @@ def api_portfolio(request):
         for p in portfolios:
             d = model_to_dict(p)
             if p.image:
-                d['image'] = p.image.url
+                d['image'] = request.build_absolute_uri(p.image.url)
+                #d['image'] = p.image.url
             data.append(d)
         return JsonResponse({'success': True, 'data': data})
     return JsonResponse({'error': 'Invalid method'}, status=405)
@@ -187,4 +188,3 @@ def dashboard_home(request):
 def public_index(request):
     portfolios = Portfolio.objects.all().order_by('-created_at')
     return render(request, 'public_index.html', {'portfolios': portfolios})
- 

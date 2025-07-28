@@ -34,14 +34,14 @@
         <input type="url" name="url" placeholder="Lien du projet (optionnel)">
         <textarea name="description" placeholder="Décrivez votre projet" required></textarea>
         <input type="file" name="image" accept="image/*" required>
-        <button type="submit">Ajouter</button>
+      <button type="submit">Ajouter</button>
         <div id="form-status"></div>
-      </form>
+    </form>
     </div>
   </main>
   <script>
 document.getElementById('portfolioForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
+      e.preventDefault();
   const form = e.target;
   const formData = new FormData(form);
   const statusDiv = document.getElementById('form-status');
@@ -54,7 +54,7 @@ document.getElementById('portfolioForm').addEventListener('submit', async functi
     const data = await response.json();
     if (data.success) {
       statusDiv.innerHTML = '<span style="color:green;">Projet ajouté avec succès !</span>';
-      form.reset();
+        form.reset();
     } else if (data.errors) {
       for (const [field, errors] of Object.entries(data.errors)) {
         statusDiv.innerHTML += `<p style="color:red;">${errors.join('<br>')}</p>`;
@@ -64,6 +64,6 @@ document.getElementById('portfolioForm').addEventListener('submit', async functi
     statusDiv.innerHTML = '<p style="color:red;">Erreur lors de la soumission du formulaire.</p>';
   }
 });
-</script>
+  </script>
 </body>
 </html>

@@ -483,121 +483,9 @@
 
                 <div class="services__container container grid">
                     <!--==================== SERVICES 1 ====================-->
-                    <div class="services__content">
-                        <div>
-                            <i class="uil uil-web-grid services__icon"></i>
-                            <h3 class="services__title">UI/UX <br> Designer</h3>
-                        </div>
+                   
 
-                        <span class="button button--flex button--small button--link services__button">
-                            View More
-                            <i class="uil uil-arrow-right button__icon"></i>
-                        </span>
-
-                        <div class="services__modal">
-                            <div class="services__modal-content">
-                                <h4 class="services__modal-title">UI/UX <br> Designer</h4>
-                                <i class="uil uil-times services__modal-close"></i>
-
-                                <ul class="services__modal-services grid">
-                                    <li class="services__modal-service">
-                                        <i class="uil uil-check-circle services__modal-icon"></i>
-                                        <p>I develop the user interface.</p>
-                                    </li>
-                                    <li class="services__modal-service">
-                                        <i class="uil uil-check-circle services__modal-icon"></i>
-                                        <p>Web page development.</p>
-                                    </li>
-                                    <li class="services__modal-service">
-                                        <i class="uil uil-check-circle services__modal-icon"></i>
-                                        <p>I create UX element interactions.</p>
-                                    </li>
-                                    <li class="services__modal-service">
-                                        <i class="uil uil-check-circle services__modal-icon"></i>
-                                        <p>I position your company brand.</p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--==================== SERVICES 2 ====================-->
-                    <div class="services__content">
-                        <div>
-                            <i class="uil uil-arrow services__icon"></i>
-                            <h3 class="services__title">Frontend <br> Developer</h3>
-                        </div>
-
-                        <span class="button button--flex button--small button--link services__button">
-                            View More
-                            <i class="uil uil-arrow-right button__icon"></i>
-                        </span>
-
-                        <div class="services__modal">
-                            <div class="services__modal-content">
-                                <h4 class="services__modal-title">Frontend <br> Developer</h4>
-                                <i class="uil uil-times services__modal-close"></i>
-
-                                <ul class="services__modal-services grid">
-                                    <li class="services__modal-service">
-                                        <i class="uil uil-check-circle services__modal-icon"></i>
-                                        <p>I develop responsive web applications.</p>
-                                    </li>
-                                    <li class="services__modal-service">
-                                        <i class="uil uil-check-circle services__modal-icon"></i>
-                                        <p>Implement modern web technologies.</p>
-                                    </li>
-                                    <li class="services__modal-service">
-                                        <i class="uil uil-check-circle services__modal-icon"></i>
-                                        <p>Create interactive user interfaces.</p>
-                                    </li>
-                                    <li class="services__modal-service">
-                                        <i class="uil uil-check-circle services__modal-icon"></i>
-                                        <p>Optimize performance for better user experience.</p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--==================== SERVICES 3 ====================-->
-                    <div class="services__content">
-                        <div>
-                            <i class="uil uil-pen services__icon"></i>
-                            <h3 class="services__title">Branding <br> Designer</h3>
-                        </div>
-
-                        <span class="button button--flex button--small button--link services__button">
-                            View More
-                            <i class="uil uil-arrow-right button__icon"></i>
-                        </span>
-
-                        <div class="services__modal">
-                            <div class="services__modal-content">
-                                <h4 class="services__modal-title">Branding <br> Designer</h4>
-                                <i class="uil uil-times services__modal-close"></i>
-
-                                <ul class="services__modal-services grid">
-                                    <li class="services__modal-service">
-                                        <i class="uil uil-check-circle services__modal-icon"></i>
-                                        <p>I develop your company brand.</p>
-                                    </li>
-                                    <li class="services__modal-service">
-                                        <i class="uil uil-check-circle services__modal-icon"></i>
-                                        <p>Design logos and visual identity.</p>
-                                    </li>
-                                    <li class="services__modal-service">
-                                        <i class="uil uil-check-circle services__modal-icon"></i>
-                                        <p>Create cohesive brand guidelines.</p>
-                                    </li>
-                                    <li class="services__modal-service">
-                                        <i class="uil uil-check-circle services__modal-icon"></i>
-                                        <p>Design marketing materials and social media content.</p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                  
                 </div>
             </section>
 
@@ -881,66 +769,102 @@
         <!--==================== MAIN JS ====================-->
         <script src="./assets/js/main.js"></script>
 
-        <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
-        import { getFirestore, collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+        <!--==================== DYNAMIC DATA FROM DJANGO API ====================-->
+        <script>
+        // 1. ABOUT SECTION
+        fetch('http://127.0.0.1:8000/api/about/')
+          .then(res => res.json())
+          .then(result => {
+            if (result.success && Array.isArray(result.data) && result.data.length > 0) {
+              const about = result.data[0];
+              // About text
+              const aboutDesc = document.querySelector('.about__description');
+              if (aboutDesc && about.bio) aboutDesc.textContent = about.bio;
+              // About image
+              const aboutImg = document.querySelector('.about__img');
+              if (aboutImg && about.photo) aboutImg.src = about.photo;
+              // CV download
+              const aboutCV = document.querySelector('.about__buttons a.button');
+              if (aboutCV && about.cv) {
+                aboutCV.href = about.cv;
+                aboutCV.setAttribute('download', 'CV_Ketsia_Annaelle.pdf');
+              }
+            }
+          });
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyDfFIuWqz_-8AeNnoGAR2jSGMd7z2K22t0",
-            authDomain: "portfolio-aquand.firebaseapp.com",
-            projectId: "portfolio-aquand",
-            storageBucket: "portfolio-aquand.appspot.com",
-            messagingSenderId: "332649727227",
-            appId: "1:332649727227:web:30f35b4049081816bf9c5e",
-            measurementId: "G-QZ8EEY0TZC"
-        };
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        // Real-time Portfolio Section
-        function listenPortfolio() {
-            const portfolioWrapper = document.getElementById("portfolio-dynamic");
-            const q = query(collection(db, "portfolio"));
-            onSnapshot(q, (snapshot) => {
-                let contenu = "";
-                snapshot.forEach(doc => {
-                    const { projet, url, details, imageUrl } = doc.data();
-                    contenu += `
+        // 2. PORTFOLIO SECTION
+        fetch('http://127.0.0.1:8000/api/portfolio/')
+          .then(res => res.json())
+          .then(result => {
+            if (result.success && Array.isArray(result.data)) {
+              const wrapper = document.getElementById('portfolio-dynamic');
+              if (wrapper) {
+                let html = '';
+                for (const p of result.data) {
+                  html += `
                         <div class="portfolio__content grid swiper-slide">
-                            <img src="${imageUrl || 'assets/img/project.png'}" alt="${projet}" class="portfolio__img" />
+                      <img src="${p.image || 'assets/img/project.png'}" alt="${p.title || ''}" class="portfolio__img">
                             <div class="portfolio__data">
-                                <h3 class="portfolio__title">${projet}</h3>
-                                <p class="portfolio__description">${details}</p>
-                                ${url ? `<a href="${url}" class="button button--flex button--small portfolio__button" target="_blank">Demo <i class="uil uil-arrow-right button__icon"></i></a>` : ""}
+                        <h3 class="portfolio__title">${p.title || ''}</h3>
+                        <p class="portfolio__description">${p.description || ''}</p>
+                        ${p.url ? `<a href="${p.url}" class="button button--flex button--small portfolio__button" target="_blank">Demo <i class="uil uil-arrow-right button__icon"></i></a>` : ''}
                             </div>
                         </div>
                     `;
-                });
-                portfolioWrapper.innerHTML = contenu;
+                }
+                wrapper.innerHTML = html;
                 if (window.swiperPortfolio) window.swiperPortfolio.update();
-            });
+              }
         }
+          });
 
-        listenPortfolio();
+        // 3. SKILLS SECTION
+        fetch('http://127.0.0.1:8000/api/skills/')
+          .then(res => res.json())
+          .then(result => {
+            if (result.success && Array.isArray(result.data)) {
+              // Find all .skills__list.grid containers
+              const skillsLists = document.querySelectorAll('#skills .skills__list.grid');
+              if (skillsLists.length > 0) {
+                // Clear all lists
+                skillsLists.forEach(list => list.innerHTML = '');
+                // Group by skill type if needed, else just fill the first
+                let html = '';
+                for (const s of result.data) {
+                  html += `
+                    <div class="skills__data">
+                      <div class="skills__titles">
+                        <h3 class="skills__name">${s.skill || ''}</h3>
+                        <span class="skills__number">${s.level || ''}</span>
+                      </div>
+                      <div class="skills__bar">
+                        <span class="skills__percentage"></span>
+                      </div>
+                    </div>
+                  `;
+                }
+                skillsLists[0].innerHTML = html;
+              }
+            }
+          });
 
-        // 2. Qualification Section
-        async function loadQualifications() {
-            const container = document.getElementById("education");
-            if (!container) return;
-            try {
-                const q = query(collection(db, "qualifications"), orderBy("annee", "desc"));
-                const snapshot = await getDocs(q);
-                let contenu = "";
-                snapshot.forEach(doc => {
-                    const { diplome, etablissement, annee } = doc.data();
-                    contenu += `
+        // 4. QUALIFICATIONS SECTION
+        fetch('http://127.0.0.1:8000/api/qualifications/')
+          .then(res => res.json())
+          .then(result => {
+            if (result.success && Array.isArray(result.data)) {
+              const container = document.getElementById('education');
+              if (container) {
+                let html = '';
+                for (const q of result.data) {
+                  html += `
                         <div class="qualification__data">
                             <div>
-                                <h3 class="qualification__title">${diplome}</h3>
-                                <span class="qualification__subtitle">${etablissement}</span>
+                        <h3 class="qualification__title">${q.diploma || ''}</h3>
+                        <span class="qualification__subtitle">${q.institution || ''}</span>
                                 <div class="qualification__calendar">
                                     <i class="uil uil-calendar-alt"></i>
-                                    ${annee}
+                          ${q.year || ''}
                                 </div>
                             </div>
                             <div>
@@ -949,116 +873,82 @@
                             </div>
                         </div>
                     `;
-                });
-                container.innerHTML = contenu;
-            } catch (err) {
-                console.error("Erreur de chargement des qualifications :", err);
+                }
+                container.innerHTML = html;
             }
         }
+          });
 
-        // 3. Skills Section
-        async function loadSkills() {
-            const container = document.querySelector("#skills .skills__list.grid");
-            if (!container) return;
-            try {
-                const q = query(collection(db, "skills"));
-                const snapshot = await getDocs(q);
-                let contenu = "";
-                snapshot.forEach(doc => {
-                    const { skill, skillName, experience } = doc.data();
-                    const name = skill || skillName || "";
-                    contenu += `
-                        <div class="skills__data">
-                            <div class="skills__titles">
-                                <h3 class="skills__name">${name}</h3>
-                                <span class="skills__number">${experience} years</span>
-                            </div>
-                            <div class="skills__bar">
-                                <span class="skills__percentage"></span>
-                            </div>
-                        </div>
-                    `;
-                });
-                container.innerHTML = contenu;
-            } catch (err) {
-                console.error("Erreur de chargement des compétences :", err);
-            }
-        }
-
-        // 4. Services Section
-        async function loadServices() {
-            const container = document.querySelector(".services__container");
-            if (!container) return;
-            try {
-                const q = query(collection(db, "services"));
-                const snapshot = await getDocs(q);
-                let contenu = "";
-                snapshot.forEach(doc => {
-                    const { service, description } = doc.data();
-                    contenu += `
+        // 5. SERVICES SECTION
+        fetch('http://127.0.0.1:8000/api/services/')
+          .then(res => res.json())
+          .then(result => {
+            if (result.success && Array.isArray(result.data)) {
+              const container = document.querySelector('.services__container');
+              if (container) {
+                let html = '';
+                for (let i = 0; i < result.data.length; i++) {
+                  const s = result.data[i];
+                  html += `
                         <div class="services__content">
                             <div>
                                 <i class="uil uil-web-grid services__icon"></i>
-                                <h3 class="services__title">${service}</h3>
+                        <h3 class="services__title">${s.service || ''}</h3>
                             </div>
-                            <span class="button button--flex button--small button--link services__button">
-                                View More
-                                <i class="uil uil-arrow-right button__icon"></i>
-                            </span>
-                            <div class="services__modal">
+                      <span class="button button--flex button--small button--link services__button" data-index="${i}">View More <i class="uil uil-arrow-right button__icon"></i></span>
+                      <div class="services__modal" data-index="${i}">
                                 <div class="services__modal-content">
-                                    <h4 class="services__modal-title">${service}</h4>
+                          <h4 class="services__modal-title">${s.service || ''}</h4>
                                     <i class="uil uil-times services__modal-close"></i>
                                     <ul class="services__modal-services grid">
                                         <li class="services__modal-service">
                                             <i class="uil uil-check-circle services__modal-icon"></i>
-                                            <p>${description}</p>
+                              <p>${s.description || ''}</p>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     `;
-                });
-                container.innerHTML = contenu;
-            } catch (err) {
-                console.error("Erreur de chargement des services :", err);
-            }
-        }
-
-        // 5. About Section
-        async function loadAbout() {
-            const aboutDesc = document.querySelector(".about__description");
-            if (!aboutDesc) return;
-            try {
-                const q = query(collection(db, "about"));
-                const snapshot = await getDocs(q);
-                if (!snapshot.empty) {
-                    const data = snapshot.docs[0].data();
-                    aboutDesc.textContent = data.description;
                 }
-            } catch (err) {
-                console.error("Erreur de chargement du à propos :", err);
+                                // Replace the container to remove old listeners
+                const newContainer = container.cloneNode(false); // shallow clone, no children
+                newContainer.innerHTML = html;
+                container.parentNode.replaceChild(newContainer, container);
+                // Event delegation for modal open/close
+                newContainer.addEventListener('click', function(e) {
+                  const btn = e.target.closest('.services__button');
+                  if (btn) {
+                    const idx = btn.getAttribute('data-index');
+                    const modal = newContainer.querySelector(`.services__modal[data-index="${idx}"]`);
+                    if (modal) modal.classList.add('active-modal');
+                  }
+                  const close = e.target.closest('.services__modal-close');
+                  if (close) {
+                    const modal = close.closest('.services__modal');
+                    if (modal) modal.classList.remove('active-modal');
+                  }
+                });
+              }
             }
-        }
+          });
 
-        // 6. Testimonial Section
-        async function loadTestimonials() {
-            const container = document.querySelector(".testimonial__container .swiper-wrapper");
-            if (!container) return;
-            try {
-                const q = query(collection(db, "testimonials"));
-                const snapshot = await getDocs(q);
-                let contenu = "";
-                snapshot.forEach(doc => {
-                    const { nom, message } = doc.data();
-                    contenu += `
+        // 6. TESTIMONIALS SECTION
+        fetch('http://127.0.0.1:8000/api/testimonials/')
+          .then(res => res.json())
+          .then(result => {
+            if (result.success && Array.isArray(result.data)) {
+              const container = document.querySelector('.testimonial__container .swiper-wrapper');
+              if (container) {
+                let html = '';
+                for (const t of result.data) {
+                  html += `
                         <div class="testimonial__content swiper-slide">
                             <div class="testimonial__data">
                                 <div class="testimonial__header">
                                     <img src="assets/img/testimonial1.jpg" alt="" class="testimonial__img">
                                     <div>
-                                        <h3 class="testimonial__name">${nom}</h3>
+                            <h3 class="testimonial__name">${t.author || ''}</h3>
                                         <span class="testimonial__client">Client</span>
                                     </div>
                                 </div>
@@ -1070,23 +960,15 @@
                                     <i class="uil uil-star testimonial__icon-star"></i>
                                 </div>
                             </div>
-                            <p class="testimonial__description">${message}</p>
+                      <p class="testimonial__description">${t.testimonial || ''}</p>
                         </div>
                     `;
-                });
-                container.innerHTML = contenu;
+                }
+                container.innerHTML = html;
                 if (window.swiperTestimonial) window.swiperTestimonial.update();
-            } catch (err) {
-                console.error("Erreur de chargement des témoignages :", err);
+              }
             }
-        }
-
-        // Call all loaders on page load
-        loadQualifications();
-        loadSkills();
-        loadServices();
-        loadAbout();
-        loadTestimonials();
+          });
         </script>
     </body>
 </html>

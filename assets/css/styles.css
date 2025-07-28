@@ -648,75 +648,103 @@ img {
 
 .services__content {
     position: relative;
-    background-color: var(--container-color);
-    padding: 3.5rem .5rem 1.25rem 1.5rem;
-    border-radius: .25rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, .15);
-    transition: .3s;
+    background: linear-gradient(135deg, var(--first-color) 0%, var(--first-color-alt) 100%);
+    color: #fff;
+    padding: 3.5rem 1.5rem 2rem 1.5rem;
+    border-radius: 1.25rem;
+    box-shadow: 0 8px 32px rgba(44, 62, 80, 0.15), 0 1.5px 8px rgba(44, 62, 80, 0.10);
+    transition: box-shadow 0.3s, transform 0.2s;
+    /*overflow: hidden;*/
+    min-height: 260px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .services__content:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, .15);
+    box-shadow: 0 16px 40px rgba(44, 62, 80, 0.18), 0 3px 16px rgba(44, 62, 80, 0.13);
+    transform: translateY(-6px) scale(1.03);
 }
 
 .services__icon {
     display: block;
-    font-size: 1.5rem;
-    color: var(--first-color);
+    font-size: 2.5rem;
+    color: #fff;
     margin-bottom: var(--mb-1);
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+    padding: 0.7rem;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.08);
 }
 
 .services__title {
-    font-size: var(--h3-font-size);
+    font-size: 1.3rem;
     margin-bottom: var(--mb-1);
-    font-weight: var(--font-medium);
+    font-weight: var(--font-semi-bold);
+    letter-spacing: 0.5px;
+    color: #fff;
 }
 
 .services__button {
     cursor: pointer;
     font-size: var(--small-font-size);
+    color: #fff;
+    background: rgba(255,255,255,0.12);
+    border-radius: 0.5rem;
+    padding: 0.5rem 1.2rem;
+    margin-top: auto;
+    font-weight: 500;
+    box-shadow: 0 1px 4px rgba(44,62,80,0.08);
+    transition: background 0.2s, color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
-.services__button:hover .button__icon {
-    transform: translateX(.25rem);
+.services__button:hover {
+    background: #fff;
+    color: var(--first-color);
 }
 
 .services__modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, .5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 1rem;
-    z-index: var(--z-modal);
-    opacity: 0;
-    visibility: hidden;
-    transition: .3s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(44, 44, 84, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999; /* Très élevé pour passer devant tout */
+  transition: opacity 0.3s;
 }
 
 .services__modal-content {
     position: relative;
-    background-color: var(--container-color);
-    padding: 1.5rem;
-    border-radius: .5rem;
+    background: linear-gradient(135deg, #fff 60%, var(--first-color-lighter) 100%);
+    color: var(--title-color);
+    padding: 2.5rem 2rem 2rem 2rem;
+    border-radius: 1.25rem;
+    box-shadow: 0 8px 32px rgba(44, 62, 80, 0.18);
+    min-width: 320px;
+    max-width: 95vw;
+    /*animation: modalPopIn 0.35s cubic-bezier(.23,1.02,.67,1.01);*/
 }
 
-.services__modal-services {
-    row-gap: 1rem;
-}
-
-.services__modal-service {
-    display: flex;
+@keyframes modalPopIn {
+  0% { transform: scale(0.85) translateY(40px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
 }
 
 .services__modal-title {
-    font-size: var(--h3-font-size);
-    font-weight: var(--font-medium);
+    font-size: 1.3rem;
+    font-weight: var(--font-semi-bold);
     margin-bottom: var(--mb-1-5);
+    color: var(--first-color);
+    letter-spacing: 0.5px;
 }
 
 .services__modal-close {
@@ -726,17 +754,52 @@ img {
     font-size: 1.5rem;
     color: var(--first-color);
     cursor: pointer;
+    background: rgba(0,0,0,0.04);
+    border-radius: 50%;
+    padding: 0.3rem 0.5rem;
+    transition: background 0.2s;
 }
+.services__modal-close:hover {
+    background: var(--first-color-lighter);
+}
+
+.services__modal-services {
+    row-gap: 1.2rem;
+    margin-top: 1rem;
+}
+
+.services__modal-service {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    font-size: 1rem;
+    color: var(--text-color);
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 .services__modal-icon {
     color: var(--first-color);
     margin-right: var(--mb-0-25);
+    font-size: 1.2rem;
+    margin-top: 0.2rem;
 }
 
 /* Active Modal */
 .active-modal {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
 }
 
 

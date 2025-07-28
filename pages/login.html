@@ -47,14 +47,14 @@
   <!-- <script src="../assets/js/yup.umd.js"></script> -->
   <!-- <script src="https://unpkg.com/yup@0.32.11/dist/yup.umd.js"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js"></script>
-  <script type="module">
+<script type="module">
     import * as yup from 'https://cdn.jsdelivr.net/npm/yup@1.2.0/+esm';
     const loginSchema = yup.object({
       username: yup.string().required("Le nom d'utilisateur est requis."),
       password: yup.string().required("Le mot de passe est requis."),
     });
     document.getElementById('loginForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
+    e.preventDefault();
       ['username', 'password'].forEach(field => {
         document.getElementById('error-' + field).textContent = '';
       });
@@ -70,7 +70,7 @@
           validationError.inner.forEach(err => {
             const errorDiv = document.getElementById('error-' + err.path);
             if (errorDiv) errorDiv.textContent = err.message;
-          });
+      });
         }
         Swal.fire({
           icon: 'error',
@@ -127,7 +127,7 @@
           confirmButtonText: 'OK',
         });
       }
-    });
-  </script>
+  });
+</script>
 </body>
 </html>

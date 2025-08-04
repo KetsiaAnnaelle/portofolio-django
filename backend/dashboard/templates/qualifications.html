@@ -25,8 +25,7 @@
           </g>
         </svg>
       </div>
-      <h3 id="sidebarUserName">Ketsia</h3>
-      <p id="sidebarUserRole">User</p>
+      
     </div>
     <nav>
       <a href="/dashboard"><i class="fas fa-th-large"></i>Dashboard</a>
@@ -44,17 +43,17 @@
       <div class="dashboard-title">Qualifications</div>
       <div class="dashboard-desc">Ajoutez ou modifiez vos diplômes et formations pour les afficher sur votre site public.</div>
       <form id="qualificationsForm">
-        <select name="type" required>
+        <select name="type">
           <option value="">Sélectionnez le type</option>
           <option value="education">Éducation</option>
           <option value="work">Travail</option>
         </select>
         <div class="input-error" id="error-type"></div>
-        <input type="text" name="diploma" placeholder="Diplôme ou Formation" required>
+        <input type="text" name="diploma" placeholder="Diplôme ou Formation">
         <div class="input-error" id="error-diploma"></div>
-        <input type="text" name="institution" placeholder="Établissement" required>
+        <input type="text" name="institution" placeholder="Établissement">
         <div class="input-error" id="error-institution"></div>
-        <input type="text" name="year" placeholder="Année" required>
+        <input type="text" name="year" placeholder="Année">
         <div class="input-error" id="error-year"></div>
       <button type="submit">Ajouter</button>
         <div id="form-status"></div>
@@ -106,7 +105,7 @@
       const statusDiv = document.getElementById('form-status');
       statusDiv.innerHTML = '';
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/qualifications/', {
+        const response = await fetch('{{ base_url }}/api/qualifications/', {
           method: 'POST',
           body: formData,
         });
@@ -155,7 +154,7 @@
     });
   </script>
   <script>
-    fetch('http://127.0.0.1:8000/api/about/')
+    fetch('{{ base_url }}/api/about/')
       .then(response => response.json())
       .then(result => {
         if (Array.isArray(result.data) && result.data.length > 0) {

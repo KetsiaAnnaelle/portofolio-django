@@ -11,7 +11,15 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
 from django.forms.models import model_to_dict
 
-# Create your views here.
+
+from dotenv import load_dotenv
+# Create your views here.import os
+
+
+import os
+
+load_dotenv()
+
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -314,31 +322,56 @@ def login_view(request):
     return render(request, 'login.html')
 
 def register_view(request):
+    
     return render(request, 'register.html')
 
 def about_view(request):
-    return render(request, 'about.html')
+    context={
+        "base_url": os.getenv("base_url")
+    }
+    return render(request, 'about.html', context)
 
 def skills_view(request):
-    return render(request, 'skills.html')
+    context={
+        "base_url": os.getenv("base_url")
+    }
+    return render(request, 'skills.html', context)
 
 def services_view(request):
-    return render(request, 'services.html')
+    context={
+        "base_url": os.getenv("base_url")
+    }
+    return render(request, 'services.html', context)
 
 def portfolio_view(request):
-    return render(request, 'portfolio.html')
+    context={
+        "base_url": os.getenv("base_url")
+    }
+    return render(request, 'portfolio.html', context)
 
 def qualifications_view(request):
-    return render(request, 'qualifications.html')
+    context={
+        "base_url": os.getenv("base_url")
+    }
+    return render(request, 'qualifications.html', context)
 
 def testimonials_view(request):
-    return render(request, 'testimonials.html')
+    context={
+        "base_url": os.getenv("base_url")
+    }
+    return render(request, 'testimonials.html', context)
 
 def dashboard_view(request):
-    return render(request, 'dashboard.html')
+    context={
+        "base_url": os.getenv("base_url")
+    }
+    return render(request, 'dashboard.html', context)
 
 def index_view(request):
-    return render(request, 'index.html')
+    context={
+        "base_url": os.getenv("base_url")
+    }
+    return render(request, 'index.html', context)
 
 def edit_about_view(request, about_id):
     return render(request, 'about.html', {'is_edit': True, 'item_id': about_id})

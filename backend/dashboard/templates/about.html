@@ -32,8 +32,7 @@
             </g>
           </svg>
         </div>
-        <h3 id="sidebarUserName">Ketsia</h3>
-        <p id="sidebarUserRole">User</p>
+        
       </div>
       <button class="mobile-menu-close" id="mobileMenuClose">
         <i class="fas fa-times"></i>
@@ -260,7 +259,7 @@
       statusDiv.innerHTML = '';
 
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/about/', {
+        const response = await fetch('{{ base_url }}/api/about/', {
           method: 'POST',
           body: formData,
         });
@@ -310,7 +309,7 @@
     });
   </script>
   <script>
-    fetch('http://127.0.0.1:8000/api/about/')
+    fetch('{{ base_url }}/api/about/')
       .then(response => response.json())
       .then(result => {
         if (Array.isArray(result.data) && result.data.length > 0) {

@@ -66,8 +66,6 @@
           </g>
         </svg>
       </div>
-      <h3 id="sidebarUserName">Ketsia</h3>
-      <p id="sidebarUserRole">User</p>
     </div>
     <nav>
       <a href="/dashboard"><i class="fas fa-th-large"></i>Dashboard</a>
@@ -164,7 +162,7 @@
       statusDiv.innerHTML = '';
       try {
         const isEdit = document.getElementById('edit_item_id');
-        const url = isEdit ? `http://127.0.0.1:8000/api/skills/edit/${isEdit.value}/` : 'http://127.0.0.1:8000/api/skills/';
+        const url = isEdit ? `{{ base_url }}/api/skills/edit/${isEdit.value}/` : '{{ base_url }}/api/skills/';
         const method = isEdit ? 'PUT' : 'POST';
         
         let requestBody;
@@ -234,7 +232,7 @@
     });
   </script>
   <script>
-    fetch('http://127.0.0.1:8000/api/about/')
+    fetch('{{ base_url }}/api/about/')
       .then(response => response.json())
       .then(result => {
         if (Array.isArray(result.data) && result.data.length > 0) {

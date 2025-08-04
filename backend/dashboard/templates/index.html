@@ -799,7 +799,7 @@
         <!--==================== DYNAMIC DATA FROM DJANGO API ====================-->
         <script>
         // 1. ABOUT SECTION
-        fetch('http://127.0.0.1:8000/api/about/')
+        fetch('{{ base_url }}/api/about/')
           .then(res => res.json())
           .then(result => {
             if (result.success && Array.isArray(result.data) && result.data.length > 0) {
@@ -895,7 +895,7 @@
           });
 
         // 2. PORTFOLIO SECTION
-        fetch('http://127.0.0.1:8000/api/portfolio/')
+        fetch('{{ base_url }}/api/portfolio/')
           .then(res => res.json())
           .then(result => {
             if (result.success && Array.isArray(result.data)) {
@@ -921,7 +921,7 @@
           });
 
         // 3. SKILLS SECTION
-        fetch('http://127.0.0.1:8000/api/skills/')
+        fetch('{{ base_url }}/api/skills/')
           .then(res => res.json())
           .then(result => {
             if (result.success && Array.isArray(result.data) && result.data.length > 0) {
@@ -970,7 +970,7 @@
           });
 
         // 4. QUALIFICATIONS SECTION
-        fetch('http://127.0.0.1:8000/api/qualifications/')
+        fetch('{{ base_url }}/api/qualifications/')
           .then(res => res.json())
           .then(result => {
             if (result.success && Array.isArray(result.data)) {
@@ -1031,7 +1031,7 @@
           });
 
         // 5. SERVICES SECTION
-        fetch('http://127.0.0.1:8000/api/services/')
+        fetch('{{ base_url }}/api/services/')
           .then(res => res.json())
           .then(result => {
             if (result.success && Array.isArray(result.data)) {
@@ -1085,7 +1085,7 @@
           });
 
         // 6. TESTIMONIALS SECTION
-        fetch('http://127.0.0.1:8000/api/testimonials/')
+        fetch('{{ base_url }}/api/testimonials/')
           .then(res => res.json())
           .then(result => {
             if (result.success && Array.isArray(result.data)) {

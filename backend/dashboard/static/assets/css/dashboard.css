@@ -260,7 +260,7 @@ body { display: flex; min-height: 100vh; background-color: #f8f9fa;}
     }
     
     .mobile-sidebar nav a i {
-        width: 20px;
+        width: 20px;   
         text-align: center;
         font-size: 18px;
     }

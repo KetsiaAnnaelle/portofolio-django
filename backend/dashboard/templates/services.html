@@ -12,7 +12,48 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css">
 </head>
 <body>
-  <aside class="dashboard-sidebar">
+  <!-- Mobile Menu Toggle -->
+  <div class="mobile-menu-toggle" id="mobileMenuToggle">
+    <i class="fas fa-bars"></i>
+  </div>
+
+  <!-- Off-canvas Mobile Menu -->
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+  <aside class="sidebar mobile-sidebar" id="mobileSidebar">
+    <div class="mobile-menu-header">
+      <div class="profile">
+        <div class="home__img" style="margin: 0 auto;">
+          <svg class="home__blob" viewBox="0 0 200 187" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <mask id="mask0" mask-type="alpha">
+              <path d="M190.312 36.4879C206.582 62.1187 201.309 102.826 182.328 134.186C163.346 165.547 130.807 187.559 100.226 186.353C69.6454 185.297 41.0228 161.023 21.7403 129.362C2.45775 97.8511 -7.48481 59.1033 6.67581 34.5279C20.9871 10.1032 59.7028 -0.149132 97.9666 0.00163737C136.23 0.303176 174.193 10.857 190.312 36.4879Z"/>
+            </mask>
+            <g mask="url(#mask0)">
+              <path d="M190.312 36.4879C206.582 62.1187 201.309 102.826 182.328 134.186C163.346 165.547 130.807 187.559 100.226 186.353C69.6454 185.297 41.0228 161.023 21.7403 129.362C2.45775 97.8511 -7.48481 59.1033 6.67581 34.5279C20.9871 10.1032 59.7028 -0.149132 97.9666 0.00163737C136.23 0.303176 174.193 10.857 190.312 36.4879Z"/>
+              <image class="home__blob-img" id="sidebarProfileImg" x="12" y="18" href="" alt="Profile Image"/>
+            </g>
+          </svg>
+        </div>
+        <h3 id="sidebarUserName">Loading...</h3>
+        <p id="sidebarUserRole">Loading...</p>
+      </div>
+      <button class="mobile-menu-close" id="mobileMenuClose">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <nav>
+      <a href="/dashboard"><i class="fas fa-th-large"></i>Dashboard</a>
+      <a href="/about"><i class="fas fa-user"></i>About</a>
+      <a href="/skills"><i class="fas fa-code"></i>Skills</a>
+      <a href="/qualifications"><i class="fas fa-graduation-cap"></i>Qualifications</a>
+      <a href="/services" class="active"><i class="fas fa-briefcase"></i>Services</a>
+      <a href="/portfolio"><i class="fas fa-folder-open"></i>Portfolio</a>
+      <a href="/testimonials"><i class="fas fa-comments"></i>Testimonial</a>
+      <a href="/contact"><i class="fas fa-envelope"></i>Contact</a>
+    </nav>
+  </aside>
+
+  <!-- Desktop Sidebar -->
+  <aside class="dashboard-sidebar desktop-sidebar">
     <div class="profile">
       <div class="home__img" style="margin: 0 auto;">
         <svg class="home__blob" viewBox="0 0 200 187" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -25,7 +66,8 @@
           </g>
         </svg>
       </div>
-      
+      <h3 id="sidebarUserName">Loading...</h3>
+      <p id="sidebarUserRole">Loading...</p>
     </div>
     <nav>
       <a href="/dashboard"><i class="fas fa-th-large"></i>Dashboard</a>
@@ -34,7 +76,7 @@
       <a href="/qualifications"><i class="fas fa-graduation-cap"></i>Qualifications</a>
       <a href="/services" class="active"><i class="fas fa-briefcase"></i>Services</a>
       <a href="/portfolio"><i class="fas fa-folder-open"></i>Portfolio</a>
-      <a href="/testimonialsl"><i class="fas fa-comments"></i>Testimonial</a>
+      <a href="/testimonials"><i class="fas fa-comments"></i>Testimonial</a>
       <a href="/contact"><i class="fas fa-envelope"></i>Contact</a>
     </nav>
   </aside>
@@ -138,31 +180,77 @@
       .then(result => {
         if (Array.isArray(result.data) && result.data.length > 0) {
           const about = result.data[0];
-          // Update profile image
-          if (about.photo) {
-            const img = document.getElementById('sidebarProfileImg');
-            if (img) {
+          
+          // Update all profile images (both mobile and desktop)
+          const profileImages = document.querySelectorAll('#sidebarProfileImg');
+          profileImages.forEach(img => {
+            if (about.photo) {
               img.setAttribute('href', about.photo);
             }
-          }
-          // Update user name
-          if (about.first_name && about.last_name) {
-            const userName = document.getElementById('sidebarUserName');
-            if (userName) {
+          });
+          
+          // Update all user names (both mobile and desktop)
+          const userNames = document.querySelectorAll('#sidebarUserName');
+          userNames.forEach(userName => {
+            if (about.first_name && about.last_name) {
               userName.textContent = `${about.first_name} ${about.last_name}`;
             }
-          }
-          // Update user role
-          if (about.profession) {
-            const userRole = document.getElementById('sidebarUserRole');
-            if (userRole) {
+          });
+          
+          // Update all user roles (both mobile and desktop)
+          const userRoles = document.querySelectorAll('#sidebarUserRole');
+          userRoles.forEach(userRole => {
+            if (about.profession) {
               userRole.textContent = about.profession;
             }
-          }
+          });
         }
       })
       .catch(err => {
         console.error('Failed to load profile image:', err);
+    });
+
+    // Mobile menu functionality
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const mobileSidebar = document.getElementById('mobileSidebar');
+    const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+    const mobileMenuClose = document.getElementById('mobileMenuClose');
+
+    function openMobileMenu() {
+      mobileSidebar.classList.add('active');
+      mobileMenuOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobileMenu() {
+      mobileSidebar.classList.remove('active');
+      mobileMenuOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    if (mobileMenuToggle) {
+      mobileMenuToggle.addEventListener('click', openMobileMenu);
+    }
+    
+    if (mobileMenuClose) {
+      mobileMenuClose.addEventListener('click', closeMobileMenu);
+    }
+    
+    if (mobileMenuOverlay) {
+      mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+    }
+
+    // Close menu when clicking on a link
+    const mobileNavLinks = mobileSidebar.querySelectorAll('nav a');
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
+    });
+
+    // Close menu on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeMobileMenu();
+      }
     });
   </script>
 </body>

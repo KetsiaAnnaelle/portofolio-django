@@ -169,6 +169,127 @@ def api_testimonials(request):
         return JsonResponse({'success': True, 'data': data})
     return JsonResponse({'error': 'Invalid method'}, status=405)
 
+@csrf_exempt
+def api_edit_about(request, about_id):
+    try:
+        about = About.objects.get(id=about_id)
+        if request.method == 'PUT':
+            # Parse PUT data
+            import json
+            data = json.loads(request.body)
+            form = AboutForm(data, request.FILES, instance=about)
+            if form.is_valid():
+                form.save()
+                return JsonResponse({'success': True})
+            else:
+                return JsonResponse({'success': False, 'errors': form.errors}, status=400)
+        elif request.method == 'GET':
+            data = model_to_dict(about)
+            if about.photo:
+                data['photo'] = request.build_absolute_uri(about.photo.url)
+            if about.cv:
+                data['cv'] = request.build_absolute_uri(about.cv.url)
+            return JsonResponse({'success': True, 'data': data})
+    except About.DoesNotExist:
+        return JsonResponse({'error': 'About not found'}, status=404)
+
+@csrf_exempt
+def api_edit_skills(request, skill_id):
+    try:
+        skill = Skill.objects.get(id=skill_id)
+        if request.method == 'PUT':
+            import json
+            data = json.loads(request.body)
+            form = SkillsForm(data, instance=skill)
+            if form.is_valid():
+                form.save()
+                return JsonResponse({'success': True})
+            else:
+                return JsonResponse({'success': False, 'errors': form.errors}, status=400)
+        elif request.method == 'GET':
+            data = model_to_dict(skill)
+            return JsonResponse({'success': True, 'data': data})
+    except Skill.DoesNotExist:
+        return JsonResponse({'error': 'Skill not found'}, status=404)
+
+@csrf_exempt
+def api_edit_services(request, service_id):
+    try:
+        service = Service.objects.get(id=service_id)
+        if request.method == 'PUT':
+            import json
+            data = json.loads(request.body)
+            form = ServicesForm(data, instance=service)
+            if form.is_valid():
+                form.save()
+                return JsonResponse({'success': True})
+            else:
+                return JsonResponse({'success': False, 'errors': form.errors}, status=400)
+        elif request.method == 'GET':
+            data = model_to_dict(service)
+            return JsonResponse({'success': True, 'data': data})
+    except Service.DoesNotExist:
+        return JsonResponse({'error': 'Service not found'}, status=404)
+
+@csrf_exempt
+def api_edit_portfolio(request, portfolio_id):
+    try:
+        portfolio = Portfolio.objects.get(id=portfolio_id)
+        if request.method == 'PUT':
+            import json
+            data = json.loads(request.body)
+            form = PortfolioForm(data, request.FILES, instance=portfolio)
+            if form.is_valid():
+                form.save()
+                return JsonResponse({'success': True})
+            else:
+                return JsonResponse({'success': False, 'errors': form.errors}, status=400)
+        elif request.method == 'GET':
+            data = model_to_dict(portfolio)
+            if portfolio.image:
+                data['image'] = request.build_absolute_uri(portfolio.image.url)
+            return JsonResponse({'success': True, 'data': data})
+    except Portfolio.DoesNotExist:
+        return JsonResponse({'error': 'Portfolio not found'}, status=404)
+
+@csrf_exempt
+def api_edit_qualifications(request, qualification_id):
+    try:
+        qualification = Qualification.objects.get(id=qualification_id)
+        if request.method == 'PUT':
+            import json
+            data = json.loads(request.body)
+            form = QualificationsForm(data, instance=qualification)
+            if form.is_valid():
+                form.save()
+                return JsonResponse({'success': True})
+            else:
+                return JsonResponse({'success': False, 'errors': form.errors}, status=400)
+        elif request.method == 'GET':
+            data = model_to_dict(qualification)
+            return JsonResponse({'success': True, 'data': data})
+    except Qualification.DoesNotExist:
+        return JsonResponse({'error': 'Qualification not found'}, status=404)
+
+@csrf_exempt
+def api_edit_testimonials(request, testimonial_id):
+    try:
+        testimonial = Testimonial.objects.get(id=testimonial_id)
+        if request.method == 'PUT':
+            import json
+            data = json.loads(request.body)
+            form = TestimonialsForm(data, instance=testimonial)
+            if form.is_valid():
+                form.save()
+                return JsonResponse({'success': True})
+            else:
+                return JsonResponse({'success': False, 'errors': form.errors}, status=400)
+        elif request.method == 'GET':
+            data = model_to_dict(testimonial)
+            return JsonResponse({'success': True, 'data': data})
+    except Testimonial.DoesNotExist:
+        return JsonResponse({'error': 'Testimonial not found'}, status=404)
+
 def logout_view(request):
     logout(request)
     return redirect('login')
@@ -188,3 +309,51 @@ def dashboard_home(request):
 def public_index(request):
     portfolios = Portfolio.objects.all().order_by('-created_at')
     return render(request, 'public_index.html', {'portfolios': portfolios})
+
+def login_view(request):
+    return render(request, 'login.html')
+
+def register_view(request):
+    return render(request, 'register.html')
+
+def about_view(request):
+    return render(request, 'about.html')
+
+def skills_view(request):
+    return render(request, 'skills.html')
+
+def services_view(request):
+    return render(request, 'services.html')
+
+def portfolio_view(request):
+    return render(request, 'portfolio.html')
+
+def qualifications_view(request):
+    return render(request, 'qualifications.html')
+
+def testimonials_view(request):
+    return render(request, 'testimonials.html')
+
+def dashboard_view(request):
+    return render(request, 'dashboard.html')
+
+def index_view(request):
+    return render(request, 'index.html')
+
+def edit_about_view(request, about_id):
+    return render(request, 'about.html', {'is_edit': True, 'item_id': about_id})
+
+def edit_skills_view(request, skill_id):
+    return render(request, 'skills.html', {'is_edit': True, 'item_id': skill_id})
+
+def edit_services_view(request, service_id):
+    return render(request, 'services.html', {'is_edit': True, 'item_id': service_id})
+
+def edit_portfolio_view(request, portfolio_id):
+    return render(request, 'portfolio.html', {'is_edit': True, 'item_id': portfolio_id})
+
+def edit_qualifications_view(request, qualification_id):
+    return render(request, 'qualifications.html', {'is_edit': True, 'item_id': qualification_id})
+
+def edit_testimonials_view(request, testimonial_id):
+    return render(request, 'testimonials.html', {'is_edit': True, 'item_id': testimonial_id})

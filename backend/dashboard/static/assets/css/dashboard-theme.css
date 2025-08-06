@@ -25,6 +25,7 @@ body {
   flex-direction: column;
   align-items: center;
   margin-bottom: 2.5rem;
+  flex-shrink: 0; /* reste fixe */
 }
 .dashboard-sidebar .profile img {
   width: 70px;
@@ -49,7 +50,20 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1.1rem;
+  flex-grow: 1;
+  overflow-y: auto;
+  scrollbar-width: thin; /* pour Firefox */
+  scrollbar-color: #888 transparent; /* couleur scrollbar pour Firefox */
+ 
 }
+
+/* Pour Chrome/Safari/Edge */
+.dashboard-sidebar nav::-webkit-scrollbar {
+ 
+  background-color: #fff; /* ou une autre couleur */
+  width: 3px;
+}
+
 .dashboard-sidebar nav a {
   display: flex;
   align-items: center;
